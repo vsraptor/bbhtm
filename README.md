@@ -3,7 +3,7 @@ bare bone Hierarchial Temporal Memory
 
 ## What is this ?
 
-This is description and implementation of Hierarchial Temporal Memory (HTM).
+This is description and implementation of Hierarchial Temporal Memory (![HTM](http://numenta.org/)).
 HTM is a theory of the neuro-cortex part of the brain tailored toward software implementation.
 
 ### How to install ?
