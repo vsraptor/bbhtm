@@ -21,6 +21,7 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 ```
 #cd bbhtm/lib
 #ipython --pylab
+
 > sys.path.append('test')
 > from data_test import *
 > dt = DataTest(data_set='ny')
@@ -29,4 +30,5 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > dt.first.plot_data()
 ```
 
+#### Documentation : check docs directory OR ![ifni.co](http://ifni.co/bbHTM.html)
 
