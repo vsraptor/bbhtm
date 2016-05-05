@@ -10,11 +10,11 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 
 > pip install numpy
 
-pip install matplotlib
+> pip install matplotlib
 
-pip install bitarray
+> pip install bitarray
 
-git clone git@github.com:vsraptor/bbhtm.git bbhtm
+> git clone git@github.com:vsraptor/bbhtm.git bbhtm
 
 
 ### How to test ?
