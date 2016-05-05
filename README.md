@@ -1,3 +1,7 @@
+##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [ifni.co](http://ifni.co/bbHTM.html)
+
+---
+
 # bbhtm
 bare bone Hierarchial Temporal Memory ([bbHTM](http://ifni.co/bbHTM.html))
 
