@@ -30,5 +30,5 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > dt.first.plot_data()
 ```
 
-##i### Documentation : check docs directory OR ![ifni.co](http://ifni.co/bbHTM.html)
+##i### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR ![ifni.co](http://ifni.co/bbHTM.html)
 
