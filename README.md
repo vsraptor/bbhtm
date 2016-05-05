@@ -3,7 +3,7 @@ bare bone Hierarchial Temporal Memory
 
 ## What is this ?
 
-This is description and implementation of Hierarchial Temporal Memory (![HTM](http://numenta.org/)).
+This is description and implementation of Hierarchial Temporal Memory ([HTM](http://numenta.org/)).
 HTM is a theory of the neuro-cortex part of the brain tailored toward software implementation.
 
 ### How to install ?
@@ -30,5 +30,5 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > dt.first.plot_data()
 ```
 
-##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR ![ifni.co](http://ifni.co/bbHTM.html)
+##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [ifni.co](http://ifni.co/bbHTM.html)
 
