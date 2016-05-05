@@ -1,5 +1,5 @@
 # bbhtm
-bare bone Hierarchial Temporal Memory
+bare bone Hierarchial Temporal Memory ([bbHTM](http://ifni.co/bbHTM.html))
 
 ## What is this ?
 
