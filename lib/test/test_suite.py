@@ -53,7 +53,7 @@ class TestSuite:
 			print "wrong args"
 			sys.exit(2)
 
-		print self.opts
+		#print self.opts
 
 
 	def print_help(self):

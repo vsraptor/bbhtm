@@ -8,8 +8,9 @@ import logging as log
 
 class ScalarClassifier(Base):
 
-	def __init__(self, encoder):
+	def __init__(self, encoder, spooler=None):
 		self.se = encoder
+		self.sp = spooler
 		self.cmap = None #classification map
 		self.cmap_keys = {}
 		self.start = 0
@@ -31,10 +32,16 @@ class ScalarClassifier(Base):
 		self.start = start
 		self.end = end
 		self.step = step
-		nrows = int( ( end - start ) / step ) + 1
-		self.cmap = BMap2D(nrows=nrows, ncols=self.se.nbits)
+		nrows = int( ( end - start ) / step ) # + 1
+		#if we are having SP in the chain
+		cols = self.sp.osize if self.sp else self.se.nbits
+		self.cmap = BMap2D(nrows=nrows, ncols=cols)
+
 		for i, v in enumerate(xrange(start,end,step)):
-			self.cmap[i,:] = utils.np2bits( self.se.encode(v) )
+			value = self.se.encode(v)
+			#one more step if SP is used
+			if self.sp : value = self.sp.predict(value)
+			self.cmap[i,:] = value
 			self.cmap_keys[i] = v
 
 	#given bit-binary OR numerical value, get back the closest matching value
@@ -42,13 +49,9 @@ class ScalarClassifier(Base):
 		if isinstance(val,int) : val = self.se.encode(val)
 		if isinstance(val,np.ndarray) : val = utils.np2bits(val)
 
-	#	print "val: %s" % val
 		val2D = self.cmap.repeat(val, self.cmap.nrows)
 		bmap = BMap2D(self.cmap.nrows, self.cmap.ncols, self.cmap.bmap & val2D)
-	#	print bmap
-	#	print "co> %s"  % bmap.count_ones(axis='rows')
 		match_idx = np.argmax( bmap.count_ones(axis='rows') )
-	#	print "mi> %s" % match_idx
 		return self.cmap_keys[match_idx]
 
 

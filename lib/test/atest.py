@@ -9,42 +9,74 @@ import utils
 from data_sets import *
 import logging as log
 import datetime as dt
+from the_test import *
+from spatial_pooler import *
 
+class ATest(TheTest):
 
-class ATest:
-
-	def __init__(self, name, data, results, data_size=100, nrows=5, winp=0.02, randomize=0.01, delta=False, loopy_cols=True) :
+	def __init__(self, name, data, results, ttype=None,
+		 data_size=100, enc_data_size=None, nrows=5, winp=0.02, randomize=0.01, delta=False, loopy_cols=True,
+		 isize=100, osize=200, segment_size=1, nudge=5, fade=None
+	) :
 
 		self.data = data
 		self.results = results
 		self.test_name = name
 		self.tame_taken = 0
 
+		self.sp = None
+		self.pre_train_sp = False #do we use SP
+		self.ttype = ttype
+
 		vmin = self.data.get('delta_min') if delta else self.data.get('min')
 		vmax = self.data.get('delta_max') if delta else self.data.get('max')
 		granularity = self.data.get('delta_granularity') if delta else self.data.get('granularity')
+
+		#we can have different data size, the SP will compensate
+		self.enc_data_size = enc_data_size if enc_data_size else data_size
+
 		self.tm = TemporalMemory(data_size=data_size, nrows=nrows, winp=winp, randomize=randomize, loopy_cols=loopy_cols)
-		self.se = ScalarEncoder(minimum=vmin, maximum=vmax,nbits=data_size,width=self.tm.winners_count)
-		self.sc = ScalarClassifier(encoder=self.se)
+		self.se = ScalarEncoder(minimum=vmin, maximum=vmax,nbits=self.enc_data_size,width=self.tm.winners_count)
+
+		if self.ttype == 'enc_sp' :
+			log.debug('> Creating Spatial pooler ...')
+			self.sp = SpatialPooler(input_size=self.enc_data_size, output_size=data_size, segment_size=1, winp=winp, nudge=nudge, fade=fade, randomize=randomize)
+			self.train_spooler(end=1000)
+			self.pre_train_sp = False
+		else : assert self.enc_data_size is None
+
+		self.sc = ScalarClassifier(encoder=self.se, spooler=self.sp)
 		#data for measuring performance
 		self.ys = []
 		self.yhat = []
 		#init
 		self.sc.build_cmap(start=vmin, end=vmax, step=granularity)
 
-	def save(self, file_name):
-		self.tm.save(file_name)
-		self.se.save(file_name)
-		self.sc.save(file_name)
 
-	def load(self):
-		raise NotImplementedError
+	def train_spooler(self,begin=0,end=100):
+		log.debug("> Training Spatial pooler ...")
+		ts = dt.datetime.now()
+
+		for i, d in enumerate( self.data.data[begin:end] ) :
+			value = self.se.encode(d)
+			if i % 100 == 0 : log.debug("%s>" % i)
+			self.sp.train(value)
+
+		te = dt.datetime.now()
+		time_taken = te - ts
+		log.debug("Time taken : %s" % time_taken)
+		#turn it off, for the next runs
+		self.pre_train_sp = False
+
 
 	def run(self, name=None, begin=0,end=100,anim=False,run_metrics=True,via=False,forward=0,delta=False):
 		self.end = end
 		if name is not None : self.test_name = name
 		self.ys = np.zeros(end-begin + forward, dtype=np.int)
 		self.yhat = np.zeros(end-begin + forward, dtype=np.int)
+
+		if self.pre_train_sp :
+			self.train_spooler(begin,end)
 
 		pred = self.se.encode(0)
 	  	ds = self.data.data[begin:end]
@@ -54,7 +86,10 @@ class ATest:
 		ts = dt.datetime.now()
 
 		for i, d in enumerate( ds ) :
-			value = utils.np2bits( self.se.encode(d) )
+
+			value = self.se.encode(d)
+			if self.ttype == 'enc_sp' : value = self.sp.predict(value)
+
 			self.ys[i] = d #store the original data
 			log.debug("%s> %s <=> %s : %s" % (i, d, self.yhat[i], self.yhat[i] - d) )
 
@@ -112,42 +147,5 @@ class ATest:
 		assert ys is not None, "No data ....."
 		size = ys.size
 		plt.plot(xrange(begin,size,step), ATest.rolling_metric(ys,yhat,fun,begin,step))
-
-	def plot_data(self,full_fname=None, dpi=300, ys=None, yhat=None):
-		name = self.test_name
-		if ys is not None : ys_data = ys
-		else : ys_data = self.results.series[name]['ys']
-		if yhat is not None : yhat_data = yhat
-		else: yhat_data = self.results.series[name]['yhat']
-
-		fig = plt.figure()
-		ax = fig.add_subplot(111)
-
-		plt.plot(ys_data)
-		plt.plot(yhat_data)
-
-		if ys is None :
-			fig.suptitle("%s | wp:%s,lc:%s" % (name,self.tm.winners_percent,self.tm.loopy_cols))
-			y = 0.998
-			for m in ['mape','nll', 'mae', 'rmse', 'r2'] :
-				metric = "%s: %.3f" % (str(m).upper(), self.results.metrics[name][m])
-				plt.text(0.998,y, metric, horizontalalignment='right',  verticalalignment='top', transform=ax.transAxes)
-				y -= 0.03
-
-		plt.tight_layout()
-		if full_fname is not None :
-			fig.savefig(full_fname,bbox_inches='tight',dpi=dpi)
-			plt.close(fig)
-
-
-	def generate_full_path(self, file_name, save_at='../tmp/dt', ext='svg') :
-		tstamp = time.strftime('%d%H%M') + '-' + str(self.end) + '_'
-		full = save_at + '/' + tstamp + file_name + '.' + ext
-		return full
-
-	def save_plot(self,file_name, save_at='../tmp/dt', ext='svg', dpi=300):
-		full = self.generate_full_path(file_name, save_at, ext)
-		log.debug( "Saving plot : %s" % full )
-		self.plot_data(full, dpi=dpi)
 
 

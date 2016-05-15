@@ -1,6 +1,6 @@
 from __future__ import division
 import numpy as np
-from bitarray import bitarray
+from bmap1D import BMap1D
 from math import factorial
 import operator as op
 
@@ -113,23 +113,43 @@ def fp_union(n,w,b,M):
 #=============== SP/TP utils =======================================
 
 def np2bits(ary):
-	b = bitarray()
+	b = BMap1D()
 	b.pack(ary.astype(np.bool).tostring())
 	return b
-	#return bitarray(list(ary))
+	#return BMap1D(list(ary))
 
 def bits2np(bits):
 	 return np.fromstring(bits.unpack(), dtype=np.uint8)
 
 #convert idxs to bit array
 def idxs2bits(idxs, nbits):
-	bit_ary = bitarray(nbits)
+	bit_ary = BMap1D(nbits)
 	bit_ary.setall(0)
 	for i in idxs: bit_ary[i] = 1
 	return bit_ary
 
+#hamming distance
+def hd(item1, item2): return (item1 ^ item2).count()
+#overlap distance
+def od(item1, item2): return (item1 & item2).count()
+
+#nudge bitstring in the direction of target
+def nudge(source, target, dist):
+	diff = source ^ target #where do they differ
+	cnt = diff.count()
+	if cnt == 0 : return # no diffs
+	flip_cnt = dist if dist <= cnt else cnt #how many to flip
+	diff_idxs = diff.one_idxs()
+	#pick random bits where the two patterns differ
+	flip_idxs = np.random.choice(diff_idxs,flip_cnt,replace=False)
+	# .. and flip them ...nudging patterns closer
+	for i in flip_idxs :	source[int(i)] ^= 1
 
 
+#flip random bits
+def flip_rand(data,cnt=0):
+	if cnt == 0 : return
+	flip_idxs = np.random.randint(0, len(data), cnt )
+	for i in flip_idxs :	data[int(i)] ^= 1
 
-
-
+def fade(val,lam=0.05): return np.exp(-val * lam)

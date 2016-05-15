@@ -2,19 +2,21 @@ import logging as log
 import csv
 import numpy as np
 from pattern_lang import PatternLang
+import sklearn.datasets
+
 #data definition
 dd = {
 	'ny' : {
-		'fname' : '../data/nyc_taxi.csv', 'count' : 17522, 'field' : 'passenger_count', 'min': 0, 'max' : 40000, 'granularity' : 50, 'scale' : 1,
-		'delta_min' : 0, 'delta_max' : 20000, 'delta_granularity' : 10, 'delta_scale' : 1, 'delta_lift' : 10000
+		'fname' : '../data/nyc_taxi.csv', 'count' : 17522, 'field' : 'passenger_count', 'min': 0, 'max' : 30000, 'granularity' : 10, 'scale' : 1,
+		'delta_min' : 0, 'delta_max' : 7000, 'delta_granularity' : 10, 'delta_scale' : 1, 'delta_lift' : 1000
 	},
 	'dollar' : {
-		'fname' : '../data/eurusd_1h.csv', 'count' : 65040, 'field' : 'close', 'min' : 8500, 'max' : 16100, 'granularity' : 10, 'scale' : 10000,
-		'delta_min' : 0, 'delta_max' : 610, 'delta_scale' : 1, 'delta_lift' : 300, 'delta_granularity' : 2
+		'fname' : '../data/eurusd_1h.csv', 'count' : 65039, 'field' : 'close', 'min' : 8580, 'max' : 16040, 'granularity' : 10, 'scale' : 10000,
+		'delta_min' : 0, 'delta_max' : 3200, 'delta_scale' : 10, 'delta_lift' : 0, 'delta_granularity' : 10
 	 },
 	'hot-gym' : {
-		'fname' : '../data/rec-center-hourly.csv', 'count' : 4392, 'field' : 'kw_energy_consumption', 'min': 0, 'max' : 90, 'granularity' : 1, 'scale' : 1, 'lift' : 0,
-		'delta_min' : 0, 'delta_max' : 100, 'delta_granularity' : 1, 'delta_scale' : 1, 'delta_lift' : 10
+		'fname' : '../data/rec-center-hourly.csv', 'count' : 4392, 'field' : 'kw_energy_consumption', 'min': 0, 'max' : 900, 'granularity' : 10, 'scale' : 10, 'lift' : 0,
+		'delta_min' : 0, 'delta_max' : 1000, 'delta_granularity' : 10, 'delta_scale' : 1, 'delta_lift' : 10
 	},
 
 	'sine' : { 'fname' : '../data/sine.csv', 'count' : 2003, 'field' : 'data', 'min': 0, 'max' : 21050, 'granularity' : 10, 'scale' : 10000, 'lift' : 11000 }
@@ -27,15 +29,23 @@ class DataSet:
 		self.data = None
 		self.data_delta = None
 		self.pl = None
-		if pat is not None :
+
+		if pat is not None : #pattern
 			self.generate_sequence(pat)
 			self.ds = 'pat'
 			dd[self.ds] = { 'count' : self.data.size, 'min' : self.data.min(), 'max' : self.data.max(), 'granularity' : 10, 'scale' : 1, 'lift' :0 }
-		else :
-			if self.ds in dd :
-				self.fname = dd[self.ds]['fname']
-				self.read_data(self.fname)
-			else : raise Exception("%s data set does not exist" % self.ds)
+			return
+
+		if self.ds in dd :
+			self.fname = dd[self.ds]['fname']
+			self.read_data(self.fname)
+			return
+
+		try : # SKLEARN
+			methodCall = getattr(sklearn.datasets, data_source)
+			self.dset = methodCall()
+			self.data = self.dset.data
+		except: raise Exception("%s data set does not exist" % self.ds)
 
 
 	def read_data(self,fname):
@@ -62,7 +72,8 @@ class DataSet:
 
 
 	def get(self, key) :
-		return dd[self.ds][key]
+		if self.ds in dd : return dd[self.ds][key]
+		return 0
 
 	def generate_sequence(self, pat):
 		if self.pl is None : self.pl = PatternLang()
@@ -73,4 +84,16 @@ class DataSet:
 
 	@staticmethod
 	def dataset_desc() : return dd
+
+
+###---------------MOVE-------------- #!fixme
+
+
+	#encode image (list of numbers 0-255) to binary numpy representation
+	@staticmethod
+	def encode_digit(data,bits=8):
+		ary = []
+		for d in data :
+			ary += list( [ int(x) for x in list(np.binary_repr(d, bits)) ] )
+		return np.array(ary)
 

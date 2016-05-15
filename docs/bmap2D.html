@@ -203,7 +203,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span> <span class="o">=</span> <span class="n">BMap2D</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -218,7 +218,7 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -237,7 +237,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">rand_item</span>
@@ -251,11 +251,108 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>bitarray(&apos;10011001111110000100&apos;)</pre>
+<pre>bitarray(&apos;01111110110000010001&apos;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">rand_bmap</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>bitarray(&apos;0001001110010000000111101010100000011110011000101111001101001000100010001111110100110010010100111101&apos;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">rand_bmap</span><span class="p">)</span>
+<span class="n">bm</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0| 10001010010110110000
+1| 10000010101100111110
+2| 11001001000111100000
+3| 11001010001100101101
+4| 11101001000110111100</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">bm</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0| 10001010010110110000
+1| 00000000000000000000
+2| 11001001000111100000
+3| 11001010001100101101
+4| 11101001000110111100</pre>
 </div>
 
 </div>
@@ -269,7 +366,8 @@ Still work in progress..</p>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">rand_bmap</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">bm</span>
 </pre></div>
 
 </div>
@@ -284,7 +382,79 @@ Still work in progress..</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>bitarray(&apos;0100000010000000110001100111110111110011110111000101110011110010101000110011100010110110010110011100&apos;)</pre>
+<pre>0| 10101010010110110000
+1| 00100000000000000000
+2| 11101001000111100000
+3| 11101010001100101101
+4| 11101001000110111100</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">bm</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0| 10101111110110110000
+1| 00101111100000000000
+2| 11101111100111100000
+3| 11101111101100101101
+4| 11101111100110111100</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">bm</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0| 10100000010110110000
+1| 00100000000000000000
+2| 11100000000111100000
+3| 11100000001100101101
+4| 11100000000110111100</pre>
 </div>
 
 </div>
@@ -298,7 +468,7 @@ Still work in progress..</p>
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">rand_bmap</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#1D access</span>
 <span class="n">bm</span>
 </pre></div>
 
@@ -314,11 +484,11 @@ Still work in progress..</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 00000000000101101011
-1| 01100000101111111110
-2| 11110000100110100010
-3| 01101110010011000000
-4| 00110100011010000110</pre>
+<pre>0| 10000000000000000000
+1| 00000000000000000000
+2| 11100000000111100000
+3| 11100000001100101101
+4| 11100000000110111100</pre>
 </div>
 
 </div>
@@ -330,176 +500,6 @@ Still work in progress..</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">bm</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0| 00000000000101101011
-1| 00000000000000000000
-2| 11110000100110100010
-3| 01101110010011000000
-4| 00110100011010000110</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">bm</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0| 00100000000101101011
-1| 00100000000000000000
-2| 11110000100110100010
-3| 01101110010011000000
-4| 00110100011010000110</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">bm</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0| 00101111100101101011
-1| 00101111100000000000
-2| 11111111100110100010
-3| 01101111110011000000
-4| 00111111111010000110</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[:,</span><span class="mi">4</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">bm</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0| 00100000000101101011
-1| 00100000000000000000
-2| 11110000000110100010
-3| 01100000010011000000
-4| 00110000011010000110</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#1D access</span>
-<span class="n">bm</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0| 00000000000000000000
-1| 00000000000000000000
-2| 11110000000110100010
-3| 01100000010011000000
-4| 00110000011010000110</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">erase</span><span class="p">()</span>
@@ -514,7 +514,7 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -533,7 +533,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -548,7 +548,7 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -567,7 +567,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">rand_item</span>
@@ -582,11 +582,11 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 10011000000100010111
+<pre>0| 11011111010010100101
 1| 00000111111000000000
 2| 00000111111000000000
 3| 00000111111000000000
@@ -601,7 +601,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
@@ -616,29 +616,29 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>0| 10000
-1| 00000
+1| 10000
 2| 00000
 3| 10000
 4| 10000
-5| 01110
-6| 01110
-7| 01110
+5| 11110
+6| 11110
+7| 11110
 8| 01110
-9| 01110
+9| 11110
 10| 01110
-11| 10000
-12| 00000
+11| 00000
+12| 10000
 13| 00000
-14| 00000
-15| 10000
+14| 10000
+15| 00000
 16| 00000
 17| 10000
-18| 10000
+18| 00000
 19| 10000</pre>
 </div>
 
@@ -650,7 +650,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
@@ -665,11 +665,11 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 10011000000100010111
+<pre>0| 11011111010010100101
 1| 00000111111000000000
 2| 00000111111000000000
 3| 00000111111000000000
@@ -684,7 +684,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span>
@@ -699,13 +699,13 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>0| 00000000000000000000
 1| 00000000000000000000
-2| 10011000000100010111
+2| 11011111010010100101
 3| 00000111111000000000
 4| 00000111111000000000</pre>
 </div>
@@ -718,7 +718,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">bmap</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">bmap</span> <span class="o">&lt;&lt;</span> <span class="mi">40</span>
@@ -733,11 +733,11 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 10011000000100010111
+<pre>0| 11011111010010100101
 1| 00000111111000000000
 2| 00000111111000000000
 3| 00000000000000000000
@@ -752,7 +752,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">&amp;</span> <span class="n">bm</span><span class="o">.</span><span class="n">rand_item</span>
@@ -766,11 +766,11 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 00000110000000000000</pre>
+<pre>0| 00000110111000000000</pre>
 </div>
 
 </div>
@@ -781,7 +781,7 @@ Still work in progress..</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">|</span> <span class="n">bm</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span>
@@ -795,11 +795,69 @@ Still work in progress..</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0| 10011111111100010111</pre>
+<pre>0| 11011111111010100101</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">coords1D</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[6, 30, 7]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">bm</span><span class="o">.</span><span class="n">coords2D</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">55</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(1, 5), (6, 10), (8, 2), (11, 15)]</pre>
 </div>
 
 </div>

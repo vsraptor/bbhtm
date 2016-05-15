@@ -3,11 +3,12 @@ import numpy as np
 from stats import stats
 import matplotlib.pylab as plt
 from base import Base
+from autovivification import *
 
 class Results(Base):
 
 	def __init__(self):
-		self.metrics = {}
+		self.metrics = AutoVivification()
 		self.series = {}
 		self.m = {}
 		self.ext = 'res'
@@ -21,7 +22,8 @@ class Results(Base):
 		self.m['r2'] = stats.r2(ys[begin:end], yhat[begin:end])
 
 
-	def add_metric(self, name, key, val) : self.metrics[name][key] = val
+	def add_metric(self, name, key, val) :	self.metrics[name][key] = val
+
 	def get_metric(self, name, key) : return self.metrics[name][key]
 
 	def add_data(self, name, ys,yhat, begin=0, end=None, forward=0):
@@ -47,6 +49,19 @@ class Results(Base):
 	def print_metrics(self):
 		for m in self.m.keys() :
 			log.info( "%s: %s" % ( m.upper(), self.m[m] ) )
+
+	def print_all_metrics(self):
+		for k in self.metrics.keys() :
+			log.info("\n> %s" % k)
+			for n,m in self.metrics[k].items() :
+				log.info( "%s: %s" % ( n.upper(), m ) )
+
+	def print_all_metrics(self):
+		for k in self.metrics.keys() :
+			log.info("\n> %s" % k)
+			for n,m in self.metrics[k].items() :
+				log.info( "%s: %s" % ( n.upper(), m ) )
+
 
 
 	def plot(self, name,series, begin=0, end=None):

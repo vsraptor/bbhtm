@@ -1,19 +1,10 @@
-from bitarray import bitarray
+from bmap1D import BMap1D
 import numpy as np
 import itertools
 import operator as op
 import os
 from base import Base
 import utils
-
-
-def lshift(self, cnt):
-	return self[cnt:] + type(self)('0') * cnt
-def rshift(self, cnt):
-	return type(self)('0') * cnt + self[:-cnt]
-
-bitarray.__lshift__ = lshift
-bitarray.__rshift__ = rshift
 
 
 #Implements 2D bit-binary functionality using 1D continious bitarray
@@ -26,7 +17,7 @@ class BMap2D(Base):
 		assert self.ncols , "When creating BMap2D, please provide ncols|nbits"
 		self.len = self.nrows * self.ncols
 		self.ext = 'bmap'
-		self.bmap = bitarray(self.len)
+		self.bmap = BMap1D(self.len)
 		self.index = 0
 		self.erase()
 		if randomize :#should we generate random noise
@@ -68,8 +59,8 @@ class BMap2D(Base):
 			self.bmap = utils.np2bits(val)
 			return
 
-		#default case : hope it is bitarray!
-		assert self.nrows * self.ncols == len(val), "bitarray: assignment size mistmatch"
+		#default case : hope it is BMap1D!
+		assert self.nrows * self.ncols == len(val), "BMap1D: assignment size mistmatch"
 		self.bmap = val
 
 	@staticmethod
@@ -79,17 +70,17 @@ class BMap2D(Base):
 
 
 	def mk_item(self) :
-		val = bitarray(self.ncols)
+		val = BMap1D(self.ncols)
 		val.setall(0)
 		return val
 
 	@property
 	def rand_item(self):
-		return bitarray(list(np.random.randint(0,2,self.ncols)))
+		return BMap1D(list(np.random.randint(0,2,self.ncols)))
 
 	@property
 	def rand_bmap(self):
-		return bitarray(list(np.random.randint(0,2,( self.nrows * self.ncols) )))
+		return BMap1D(list(np.random.randint(0,2,( self.nrows * self.ncols) )))
 
 	@property
 	def shape(self): return (self.nrows,self.ncols)
@@ -99,11 +90,10 @@ class BMap2D(Base):
 	def zeros(self): self.bmap.setall(0)
 	def ones(self) : self.bmap.setall(1)
 
-	def find_ones(self):
-		one = bitarray(1); one[0] = 1
-		idxs = self.bmap.search(one)
-		return np.array(idxs,dtype=np.uint16)
-
+	def find_ones(self): return self.bmap.one_idxs()
+#		one = BMap1D(1); one[0] = 1
+#		idxs = self.bmap.search(one)
+#		return np.array(idxs,dtype=np.uint16)
 
 	def repeat(self,val,times=None):
 		if times is None : times = self.nrows
@@ -124,7 +114,7 @@ class BMap2D(Base):
 	def erase(self): self.bmap.setall(0)
 
 	def rotate(self,deg=90):
-		tmp = bitarray(self.len)
+		tmp = BMap1D(self.len)
 		for r in xrange(self.ncols) :
 			pos = r * self.nrows
 			tmp[pos : pos + self.nrows ] = self.bmap[ r : self.len : self.ncols ]
@@ -152,12 +142,12 @@ class BMap2D(Base):
 
 	def __eq__(self, right) :
 		if isinstance(right, BMap2D): return self.bmap == right.bmap
-		if isinstance(right, bitarray): return self.bmap == right
+		if isinstance(right, BMap1D): return self.bmap == right
 		return NotImplemented
 
 	def __ne__(self, right) :
 		if isinstance(right, BMap2D): return self.bmap != right.bmap
-		if isinstance(right, bitarray): return self.bmap != right
+		if isinstance(right, BMap1D): return self.bmap != right
 		return NotImplemented
 
 	def __iter__(self): return self
@@ -254,8 +244,8 @@ class BMap2D(Base):
 			lst_len = len(lst)
 			for i, row in enumerate(lst): self.set_row(row,vals)
 		else :
-			assert isinstance(vals, (bitarray,BMap2D)), "expecting bitarray or BMap2D"
-			if isinstance(vals,bitarray) : vals = BMap2D(nrows=1, ncols=self.ncols, val=vals) #!fixme, uneeded
+			assert isinstance(vals, (BMap1D,BMap2D)), "expecting BMap1D or BMap2D"
+			if isinstance(vals,BMap1D) : vals = BMap2D(nrows=1, ncols=self.ncols, val=vals) #!fixme, uneeded
 			lst_len = len(lst)
 			assert vals.nrows == 1 or vals.nrows == lst_len, "The number of idxs differ from the number of values"
 			for i, row in enumerate(lst):
@@ -272,8 +262,8 @@ class BMap2D(Base):
 			lst_len = len(lst)
 			for i, col in enumerate(lst): self.set_col(col,vals)
 		else :
-			assert isinstance(vals, (bitarray,BMap2D)), "expecting bitarray or BMap2D"
-			if isinstance(vals,bitarray) : vals = BMap2D(nrows=1, ncols=self.ncols, val=vals) #!fixme, uneeded
+			assert isinstance(vals, (BMap1D,BMap2D)), "expecting BMap1D or BMap2D"
+			if isinstance(vals,BMap1D) : vals = BMap2D(nrows=1, ncols=self.ncols, val=vals) #!fixme, uneeded
 			lst_len = len(lst)
 	 		assert vals.nrows == 1 or vals.nrows == lst_len, "The number of idxs differ from the number of values"
 			for i, col in enumerate(lst):
@@ -320,7 +310,7 @@ class BMap2D(Base):
 				rv = []
 				for i in idxs : rv.append( self.bmap[i] )
 				return rv
-			else : return bitarray( self.bmap[idxs] )
+			else : return BMap1D( self.bmap[idxs] )
 
 
 	def set_byidxs(self, idxs, vals):

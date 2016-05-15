@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pylab as plt
 import matplotlib.animation as anim
 import time
-from bitarray import bitarray
+from bmap1D import *
 from base import Base
 from bmap2D import BMap2D
 from memory import *
@@ -61,8 +61,8 @@ class TemporalMemory(Base):
 		self.bursted = [] #store the list of bursted columns
 
 		#Activate whole col or specific cell in col, depending on the predicitve state
-		one = bitarray(1); one[0] = 1
-		data_oncols = data.search(one)
+		#one = bitarray(1); one[0] = 1
+		data_oncols = data.search(BMap1D.ONE)
 		#predicted cols
 		pred_cols = self.predicted.count_ones(axis='cols')
 		for c in data_oncols :

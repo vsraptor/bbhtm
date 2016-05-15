@@ -12,11 +12,13 @@ log.basicConfig(format='%(message)s', level=log.DEBUG)
 from data_sets import *
 from results import Results
 from atest import ATest
+from spooler_test import *
 import time
 
 class DataTest:
 
-	def __init__(self,data_set='ny' ):
+	def __init__(self,data_set='ny'):
+		self.data_set = data_set
 		if data_set[0] == '.' :
 			self.data = DataSet(pat=data_set[1:])
 		else :
@@ -26,21 +28,29 @@ class DataTest:
 		self.tests = {}
 		self.end = 0
 		self.first = None
+		self.snd = None
 
-	def new_test(self,name,**args):
+	def new_test(self,name,ttype=None,**args):
 		winp = args['winp'] if 'winp' in args else 'def'
-		log.debug("Creating test : %s, wp:%s" % (name,winp))
-		self.tests[name] = ATest(name, data=self.data,results=self.results, **args)
+		log.debug("Creating test : %s, wp:%s, type:%s" % (name,winp,ttype))
+
+		if ttype == 'spool':
+			self.tests[name] = SPoolerTest(name, data=self.data, results=self.results, ttype=ttype, **args)
+		else:
+			self.tests[name] = ATest(name, data=self.data, results=self.results, ttype=ttype, **args)
+
+		self.results.add_metric(name, 'data_set', self.data_set)
 		if not self.first : self.first = self.tests[name]
+		if not self.snd : self.snd = self.tests[name]
 
 
-	def make_tests(self,nrows_lst=[5],ncols_lst=[300],winp_lst=[0.02],delta=False):
+	def make_tests(self, ttype=None,nrows_lst=[5],ncols_lst=[300],winp_lst=[0.02],delta=False):
 		rv = []
 		for ncols in ncols_lst:
 			for nrows in nrows_lst :
 				for winp in winp_lst :
 					name = str(nrows) + 'x' + str(ncols) + 'w' + str(int(100 * winp))
-					rv = self.new_test(name,data_size=ncols,nrows=nrows, winp=winp, delta=delta)
+					rv = self.new_test(name,ttype, data_size=ncols,nrows=nrows, winp=winp, delta=delta)
 				self.test = rv
 
 	def run_test(self,name, begin=0,end=10,anim=False,forward=0, delta=False):
