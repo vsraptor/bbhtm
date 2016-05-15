@@ -32,7 +32,7 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > from data_test import *
 > dt = DataTest(data_set='ny')
 > dt.new_test(name='5x300', nrows=5, data_size=300)
-> dt.run(name='5x300', end=1000)
+> dt.first.run(end=1000)
 > dt.first.plot_data()
 ```
 
