@@ -13,9 +13,11 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 ### How to install ?
 
 ```
-# pip install numpy
-# pip install matplotlib
+# apt-get install python-numpy
+# apt-get install python-matplotlib
+# apt-get install python-scikits-learn
 # pip install bitarray
+# 
 
 # git clone git@github.com:vsraptor/bbhtm.git bbhtm
 ```
@@ -30,7 +32,7 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > from data_test import *
 > dt = DataTest(data_set='ny')
 > dt.new_test(name='5x300', nrows=5, data_size=300)
-> dt.run_test(name='5x300', end=1000)
+> dt.run(name='5x300', end=1000)
 > dt.first.plot_data()
 ```
 

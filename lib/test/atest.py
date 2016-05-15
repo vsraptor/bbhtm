@@ -43,7 +43,8 @@ class ATest(TheTest):
 			self.sp = SpatialPooler(input_size=self.enc_data_size, output_size=data_size, segment_size=1, winp=winp, nudge=nudge, fade=fade, randomize=randomize)
 			self.train_spooler(end=1000)
 			self.pre_train_sp = False
-		else : assert self.enc_data_size is None
+		else :
+			assert enc_data_size is None, "enc_data_size, should be empty, but is : %s" % enc_data_size
 
 		self.sc = ScalarClassifier(encoder=self.se, spooler=self.sp)
 		#data for measuring performance

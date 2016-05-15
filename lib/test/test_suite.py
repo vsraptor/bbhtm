@@ -48,7 +48,7 @@ class TestSuite:
 	def parse_args(self,arguments):
 		opts = {}
 		try:
-			for arg,opt in getopt.getopt(arguments,'hr:c:w:f:d:b:e:')[0] : self.opts[arg] = opt
+			for arg,opt in getopt.getopt(arguments,'hr:c:w:d:b:e:')[0] : self.opts[arg] = opt
 		except getopt.GetoptError:
 			print "wrong args"
 			sys.exit(2)
@@ -59,7 +59,7 @@ class TestSuite:
 	def print_help(self):
 		print """
 Example :
-	python run_test_suite.py -d ny -r 5 -c 100,200 -w 0.02 -s 0 -e 100
+	python run_test_suite.py -d ny -r 5 -c 100,200 -w 0.02 -b 0 -e 100
 Test suite params :
 	-d : data set : ny, dollar, hot-gym, sine
 	-r : number of rows - a list
