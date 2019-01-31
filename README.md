@@ -1,9 +1,9 @@
-##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [ifni.co](http://ifni.co/bbHTM.html)
+##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [igrok.site](http://igrok.site/bbHTM.html)
 
 ---
 
 # bbhtm
-bare bone Hierarchial Temporal Memory ([bbHTM](http://ifni.co/bbHTM.html))
+bare bone Hierarchial Temporal Memory ([bbHTM](http://www.igrok.site/bbHTM.html))
 
 ## What is this ?
 
@@ -36,5 +36,5 @@ HTM is a theory of the neuro-cortex part of the brain tailored toward software i
 > dt.first.plot_data()
 ```
 
-##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [ifni.co](http://ifni.co/bbHTM.html)
+##### Documentation : check ![docs](https://github.com/vsraptor/bbhtm/tree/master/docs) directory OR [igrok.site](http://www.igrok.site/bbHTM.html)
 
